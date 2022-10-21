@@ -13017,64 +13017,6 @@ ul.typeahead-list  > li > a.pull-right {
 .highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
-<style type="text/css">
-    
-/* Temporary definitions which will become obsolete with Notebook release 5.0 */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-bold { font-weight: bold; }
-
-    </style>
-<style type="text/css">
-    body[data-notebook-name] > #header #header-container:not(.show-panel), /* body has data-notebook-name attribute when 
-a notebook is open. this rule won't be applied when the notebook is not open (in 404 view for example) */
-body[data-notebook-name] #menubar-container #maintoolbar:not(.show-panel),
-body[data-notebook-name] #menubar-container ul.navbar-nav:not(.show-panel) {
-  display: none;
-}
-
-#menubar.only-panel #menus.navbar-default {
-    background: #fff;
-    border-color: #fff;
-}
-
-.toolbar.with-statusbar{
-    margin-top: 3px;
-    margin-bottom: 0;
-}
-
-    </style>
 
 
 <style type="text/css">
@@ -13108,7 +13050,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -13176,35 +13118,40 @@ Upon assessment I found out following issues.</p>
 <tr>
 <td style="text-align:left">2.</td>
 <td style="text-align:left"><code>twitter_archive_df</code></td>
-<td style="text-align:left">name, doggo, fluffer, pupper, puppo has None for NaN</td>
+<td style="text-align:left">Delete the Retweets so that we only have the original tweets</td>
 </tr>
 <tr>
 <td style="text-align:left">3.</td>
 <td style="text-align:left"><code>twitter_archive_df</code></td>
-<td style="text-align:left">source contain html quotes</td>
+<td style="text-align:left">name, doggo, fluffer, pupper, puppo has None for NaN</td>
 </tr>
 <tr>
 <td style="text-align:left">4.</td>
 <td style="text-align:left"><code>twitter_archive_df</code></td>
-<td style="text-align:left">Delete invalid dog names</td>
+<td style="text-align:left">source contain html quotes</td>
 </tr>
 <tr>
 <td style="text-align:left">5.</td>
 <td style="text-align:left"><code>twitter_archive_df</code></td>
-<td style="text-align:left">Incorrect numerator values</td>
+<td style="text-align:left">Delete invalid dog names</td>
 </tr>
 <tr>
 <td style="text-align:left">6.</td>
-<td style="text-align:left"><code>predictions_df</code></td>
-<td style="text-align:left">incorrect datatype(tweet_id, p1, p2, p3)</td>
+<td style="text-align:left"><code>twitter_archive_df</code></td>
+<td style="text-align:left">Incorrect numerator values</td>
 </tr>
 <tr>
 <td style="text-align:left">7.</td>
 <td style="text-align:left"><code>predictions_df</code></td>
-<td style="text-align:left">remove p1_dog, p2_dog, p3_dog set as False as these are not dog types</td>
+<td style="text-align:left">incorrect datatype(tweet_id, p1, p2, p3)</td>
 </tr>
 <tr>
 <td style="text-align:left">8.</td>
+<td style="text-align:left"><code>predictions_df</code></td>
+<td style="text-align:left">remove p1_dog, p2_dog, p3_dog set as False as these are not dog types</td>
+</tr>
+<tr>
+<td style="text-align:left">9.</td>
 <td style="text-align:left"><code>count_df</code></td>
 <td style="text-align:left">incorrect datatype(tweet_id)</td>
 </tr>
@@ -13241,6 +13188,7 @@ Upon assessment I found out following issues.</p>
 <h2 id="Step-3:-Cleaning-the-Data">Step 3: Cleaning the Data<a class="anchor-link" href="#Step-3:-Cleaning-the-Data">&#182;</a></h2><p>Once all the issues were documented, I followed the Define, Code, and Test to Clean the data using the knowledge I gained from the precious lessons.</p>
 <h3 id="Quality-Issues:">Quality Issues:<a class="anchor-link" href="#Quality-Issues:">&#182;</a></h3><ol>
 <li>Incorrect datatypes in twitter_archive_df (tweet_id, in_reply_to_status_id, in_reply_to_user_id, timestamp, source, retweeted_status_id, retweeted_status_user_id, retweeted_status_timestamp): IDs (like tweet_id, in_reply_to_status_id etc.) should be treated as string type, and timestamp fields should be of datetime type</li>
+<li>Deleted the Retweets so that we only have the original tweets</li>
 <li>5 columns(name, doggo, fluffer, pupper, puppo) in twitter_archive_df had None for NaN: None will be treated as a valid non null value in calculations, hence I changed all the None to NaN</li>
 <li>source field in twitter_archive_df had html codes which won't be of any use during analysis and visualization</li>
 <li>There were many tweets having No dog names or dog names which were not valid like a, an, the etc., so I removed all null/None as dog names and any name starting with a lowercase</li>
