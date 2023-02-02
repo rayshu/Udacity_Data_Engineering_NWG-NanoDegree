@@ -1,25 +1,17 @@
 from datetime import datetime, timedelta
 import os
 from airflow import DAG
-
-from airflow.contrib.hooks.aws_hook import AwsHook
-from airflow.hooks.postgres_hook import PostgresHook
-
-from airflow.operators.postgres_operator import PostgresOperator
-from airflow.operators.python_operator import PythonOperator
 from airflow.operators.dummy_operator import DummyOperator
-
 from airflow.operators import (StageToRedshiftOperator, LoadFactOperator,
                                 LoadDimensionOperator, DataQualityOperator)
 from helpers import SqlQueries
-
 
 # AWS_KEY = os.environ.get('AWS_KEY')
 # AWS_SECRET = os.environ.get('AWS_SECRET')
 
 default_args = {
     'owner': 'udacity',
-    'start_date': datetime(2023, 2, 1),
+    'start_date': datetime(2019, 1, 12),
     'depends_on_past': False,
     'retries': 3,
     'retry_delay': timedelta(minutes=5),
@@ -113,7 +105,8 @@ run_quality_checks = DataQualityOperator(
     task_id='Run_data_quality_checks',
     dag=dag,
     redshift_conn_id="redshift",
-    tables=["public.songplays", "public.artists", "public.time", "public.songs", "public.users"]
+    dq_checks=["SELECT COUNT(*) FROM public.songplays WHERE userid IS NULL", "SELECT COUNT(*) FROM public.artists WHERE name IS NULL", "SELECT COUNT(*) FROM public.songs WHERE title IS NULL", "SELECT COUNT(*) FROM public.users WHERE first_name IS NULL", "SELECT COUNT(*) FROM public.time WHERE weekday IS NULL"],
+    expected_result=0
 )
 
 end_operator = DummyOperator(task_id='Stop_execution',  dag=dag)

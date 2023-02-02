@@ -1,7 +1,6 @@
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
-
 from airflow.contrib.hooks.aws_hook import AwsHook
 
 class StageToRedshiftOperator(BaseOperator):
@@ -33,7 +32,6 @@ class StageToRedshiftOperator(BaseOperator):
         self.s3_key = s3_key
         self.aws_region = aws_region
 
-
     def execute(self, context):
         self.log.info('StageToRedshiftOperator - Loading Data from S3 to Redshift')
         
@@ -51,12 +49,6 @@ class StageToRedshiftOperator(BaseOperator):
         JSON '{self.json_paths}'
         COMPUPDATE OFF;
         """
-        
-        self.log.info(f"Copy command: {copy_query}")
-        
-        redshift.run(copy_query)
-        
-        self.log.info("StageToRedshiftOperator: Completed Successfully")
 
 
 

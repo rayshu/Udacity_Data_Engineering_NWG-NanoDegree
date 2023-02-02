@@ -25,7 +25,6 @@ class LoadFactOperator(BaseOperator):
         self.target_db=target_db
         self.destination_table=destination_table
         self.sql=sql
-        
 
     def execute(self, context):
         self.log.info('LoadFactOperator - Loading Fact Table')
@@ -36,3 +35,4 @@ class LoadFactOperator(BaseOperator):
         self.log.info(f"Running SQL: {sql}")
         redshift.run(sql)
         self.log.info("LoadFactOperator: Completed Successfully")
+

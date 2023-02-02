@@ -11,8 +11,10 @@ class DataQualityOperator(BaseOperator):
                  # Define your operators params (with defaults) here
                  # Example:
                  # conn_id = your-connection-name
-                 redshift_conn_id = "",
-                 tables = None,
+                 
+                 redshift_conn_id="",
+                 dq_checks=[],
+                 expected_result=None,
                  *args, **kwargs):
 
         super(DataQualityOperator, self).__init__(*args, **kwargs)
@@ -20,20 +22,32 @@ class DataQualityOperator(BaseOperator):
         # Example:
         # self.conn_id = conn_id
         self.redshift_conn_id=redshift_conn_id
-        self.tables=tables
+        self.dq_checks=dq_checks
+        self.expected_result=expected_result
 
     def execute(self, context):
         self.log.info('DataQualityOperator - Starting DQ Check')
         redshift_hook = PostgresHook(self.redshift_conn_id)
         
-        for table in self.tables:
-            records = redshift_hook.get_records(f"SELECT COUNT(*) FROM {table}")
-            
-            if len(records) < 1 or len(records[0]) < 1:
-                raise ValueError(f"Data quality check failed. {table} returned no results")
-            num_records = records[0][0]
-            if num_records < 1:
-                raise ValueError(f"Data quality check failed. {table} returned 0 records")
-            self.log.info(f"Data Quality check on table {table} passed with {records[0][0]} records")
-            
+        if len(self.dq_checks)<=0:
+            self.log.info('No DQ Passed')
+            return
         
+        failed_queries=[]
+        
+        for sql in self.dq_checks:
+            try:
+                self.log.info(f"Running query: {sql}")
+                records = redshift_hook.get_records(sql)[0][0]
+            except Exception as e:
+                self.log.info(f"Query failed with exception: {e}")
+
+            if self.expected_result != records:
+                failed_queries.append(sql)
+
+        if len(failed_queries) > 0:
+            self.log.info('Tests failed')
+            self.log.info(failed_queries)
+            raise ValueError('Data quality check failed')
+        else:
+            self.log.info("All data quality checks passed")
