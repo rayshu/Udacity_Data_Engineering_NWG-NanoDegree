@@ -1,0 +1,74 @@
+-------------------------------------------------------
+FACT_IMMIGRATION
+-------------------------------------------------------
+Primary Key = id 
+    |- id (bigint): Unique Identifier for each Immigrant
+    |- year (int): Year of arrival 
+    |- month (int): Month of Arrival
+    |- citizen (string): Country of Citizenship
+    |- resident (string): Country of Residence
+    |- port (string): Port of Admission
+    |- modes (string): Mode of Transportation (Air, Sea, Land, Not Reported)
+    |- visa (string): Visa Category (Pleasure, Business, Student)
+    |- arrival_date (date): Date of Arrival
+    |- departure_date (date): Date of Departure
+    |- age (int): Age of Immigrant as of 2016
+    |- gender (string): gender of Immigrant 
+    |- visa_type (string): Visa Type (B1, B2, CP, E2, F1, F2 etc.)
+    
+    
+-------------------------------------------------------
+DIM_TEMPERATURE
+-------------------------------------------------------
+Primary Key = city, country
+    |- city (string)
+    |- country (string)
+    |- all_time_avg_temperature (float): Avg of all the temperature given for that city and country
+
+
+-------------------------------------------------------
+DIM_AIRPORT
+-------------------------------------------------------
+Primary Key = id
+    |- id (string): Unique identifier for each row
+    |- type (string): Type of airport (Small, Medium, or Large)
+    |- name (string): Name of the Airport
+    |- country (string): Country Code
+    |- region (string): Region idenfied as Country Code-Region Code
+    
+-------------------------------------------------------
+DIM_DEMOGRAPHICS
+-------------------------------------------------------
+Primary Key = city, state, race
+    |- city (string)
+    |- state (string)
+    |- median_age (float): Median Population Age
+    |- male_population (bigint): Male population of the city
+    |- female_population (bigint): Female population of the city
+    |- total_population (bigint): Total population of the city
+    |- foreign_born (bigint): No. of people born outside the city
+    |- avg_household_size (float): Average Household size of the city
+    |- state_code (string)
+    |- race (string): Race Category for the people (Black or African-American, Hispanic or Latino, White, Asian, American Indian and Alaska Native)
+    
+    
+-------------------------------------------------------
+DIM_TIME
+-------------------------------------------------------
+Primary Key = date
+    |- date (date): Unique dates containing all arrival and departure dates
+    |- month (string): Month extracted from the date
+    |- year (int): Year extracted from the date
+    |- day (int): Day of the month extracted from the date
+    |- week (bigint): Week extracted from the date
+    |- quarter (bigint): Quarter extracted from the date
+   
+   
+-------------------------------------------------------
+DIM_ISO
+-------------------------------------------------------
+Primary Key = Country
+    |- country (string): Unique Country names
+    |- iso_code_2 (string): Two Character Country Code
+    |- iso_code_2 (string): Three Character Country Code
+   
